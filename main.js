@@ -67,18 +67,21 @@ function getPixelDataOfImg(img, event) {
 
 function checkWonOrLost(event) {
   // get the alpha of the part clicked on the picture
-  let pixelDataTransparent = getPixelDataOfImg(this, event);
-  pixelDataTransparent = pixelDataTransparent[pixelDataTransparent.length-1];
+  if (gameStarted) {
+    let pixelDataTransparent = getPixelDataOfImg(this, event);
+    pixelDataTransparent = pixelDataTransparent[pixelDataTransparent.length - 1];
 
-  if (pixelDataTransparent > 0) {
-    loadPicBefore.classList.toggle('before--opacity')
-    document.querySelector('#instructions').textContent = 'Correct! Tap the here to retry or pick another picture!';
-    document.querySelector('.won').style.display = 'flex';
-    won = true;
-    setArrow(event);
-  } else {
-    setArrow(event);
-    document.querySelector('#instructions').textContent = 'Wrong! try again';
+    if (pixelDataTransparent > 0) {
+      loadPicBefore.classList.toggle('before--opacity')
+      document.querySelector('#instructions').textContent = 'Correct! Tap the here to retry or pick another picture!';
+      document.querySelector('.won').style.display = 'flex';
+      won = true;
+      setArrow(event);
+    } else {
+      won = false;
+      setArrow(event);
+      document.querySelector('#instructions').textContent = 'Wrong! try again';
+    }
   }
 }
 
@@ -142,8 +145,8 @@ function setArrow(event) {
     document.querySelector('body').classList.add("correct");
     document.querySelector('body').classList.remove("wrong");
   } else {
-    document.querySelector('body').classList.remove("correct");
     document.querySelector('body').classList.add("wrong");
+    document.querySelector('body').classList.remove("correct");
   }
 
   arrow.style.top = event.offsetY + "px";
