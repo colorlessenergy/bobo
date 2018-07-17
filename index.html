@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="main.js" defer></script>
+  <style>
+    .canvas-contain {
+      position: relative;
+      display: inline-block;
+      min-width: 320px;
+      min-height: 320px;
+      max-width: 1000px;
+      max-height: 1000px;
+      width: 97vmin;
+      height: 97vmin;
+    }
+
+    .after, .before {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+    .image-click {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+    }
+
+    .before {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .before--opacity {
+      transition: opacity 3s ease;
+      opacity: 0;
+    }
+
+    .won {
+      background-color: rgba(0, 0, 0, .3);
+      height: 100%;
+      width: 100%;
+      z-index: 3;
+      top: 0;
+      left: 0;
+      position: absolute;
+      display: none;
+
+      /* text positioning */
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 30px;
+    }
+
+    .won p {
+      border: 1px solid #fff;
+      padding: 10px;
+      margin: 0;
+      max-width: 80%;
+    }
+
+    .start {
+      font-size: 25px;
+      position: absolute;
+      top: 50%;
+      left: 30%;
+      background-color: white;
+      padding: 10px;
+
+      z-index: 2;
+    }
+
+    .start--click {
+      display: none;
+      z-index: 0;
+    }
+
+    .progress-bar {
+      width: 100%;
+      background-color: orange;
+      height: 10px;
+      position: absolute;
+      z-index: 2;
+    }
+
+    .progress-bar__fill {
+      transition: width 3s ease;
+      width: 0%;
+    }
+  
+  </style>
+</head>
+<body>
+  <p id="instructions">Find a part of the picture that changes gradually.</p>
+  <div class="canvas-contain">
+    <div class="progress-bar"></div>
+    <img class="before" src="blueredbikini_before.jpg"></img>
+    <img class="after" src="blueredbikini_after.jpg"></img>
+    <img class="image-click"></img>
+    <div class="won">
+      <p>YOU WON!!!! click on the button to play again or pick another picture</p>
+    </div>
+    <div class="start">
+      <p>click to start the game</p>
+    </div>
+  </div>
+
+  <div class="images">
+    
+  </div>
+</body>
+</html>
