@@ -47,6 +47,7 @@ document.querySelector('.start').addEventListener('click', function () {
 
 document.querySelector('#instructions').addEventListener('click', function () {
   if (won) {
+    gameStarted = false;
     resetGame();
   }
 })
@@ -74,8 +75,10 @@ function checkWonOrLost(event) {
     document.querySelector('#instructions').textContent = 'Correct! Tap the here to retry or pick another picture!';
     document.querySelector('.won').style.display = 'flex';
     won = true;
+    setArrow(event);
   } else {
-    document.querySelector('#instructions').textContent = 'Wrong! try again foo';
+    setArrow(event);
+    document.querySelector('#instructions').textContent = 'Wrong! try again';
   }
 }
 
@@ -125,9 +128,25 @@ function resetGame() {
     progressBar.classList.remove('progress-bar__fill');
     document.querySelector('.start').classList.remove('start--click');
     loadPicBefore.classList.remove('before--opacity');
+    document.querySelector('body').classList.remove("correct");
+    document.querySelector('.arrow').style.display = "none";
   }
 
   document.querySelector('#instructions').textContent = 'Find a part of the picture that changes gradually.';
   document.querySelector('.won').style.display = 'none';
+}
 
+function setArrow(event) {
+  let arrow = document.querySelector('.arrow');
+  if (won) {
+    document.querySelector('body').classList.add("correct");
+    document.querySelector('body').classList.remove("wrong");
+  } else {
+    document.querySelector('body').classList.remove("correct");
+    document.querySelector('body').classList.add("wrong");
+  }
+
+  arrow.style.top = event.offsetY + "px";
+  arrow.style.left = event.offsetX + "px";
+  arrow.style.display = "block";
 }
