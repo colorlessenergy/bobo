@@ -54,7 +54,7 @@ document.querySelector('#instructions').addEventListener('click', function () {
 
 function loadProgressBar(progressBar) {
   progressBar.classList.toggle('progress-bar__fill');
-  window.setTimeout(doneChangingImage, 3000);
+  window.setTimeout(doneChangingImage, 10000);
 };
 
 function getPixelDataOfImg(img, event) {

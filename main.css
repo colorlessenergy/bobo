@@ -1,3 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
 body {
   color: #333;
   background-color: #eeeeee;
@@ -5,15 +13,23 @@ body {
   font-family: 'Chau Philomene One', sans-serif;
 }
 
+main {
+  margin: 0 auto;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .canvas-contain {
   position: relative;
-  display: inline-block;
-  min-width: 320px;
-  min-height: 320px;
-  max-width: 1000px;
-  max-height: 1000px;
-  width: 97vmin;
-  height: 97vmin;
+  display: flex;
+  width: 600px;
+  height: 600px;
+
+  align-items: center;
+  justify-content: center;
 }
 
 .after, .before {
@@ -37,7 +53,7 @@ body {
 }
 
 .before--opacity {
-  transition: opacity 3s ease;
+  transition: opacity 10s linear;
   opacity: 0;
 }
 
@@ -67,9 +83,7 @@ body {
 
 .start {
   font-size: 25px;
-  position: absolute;
-  top: 50%;
-  left: 30%;
+  position: relative;
   background-color: white;
   padding: 10px;
 
@@ -87,10 +101,11 @@ body {
   height: 10px;
   position: absolute;
   z-index: 2;
+  top: -10px;
 }
 
 .progress-bar__fill {
-  transition: width 3s ease;
+  transition: width 10s linear;
   width: 0%;
 }
 
@@ -108,4 +123,75 @@ body {
 
 .wrong {
   background-color: rgb(236, 112, 99);
+}
+
+/* styles for the header of the page */
+.header {
+  text-align: center;
+  width: 600px;
+  font-size: calc(1vh + 13px);
+}
+
+.logo {
+  height: 52px;
+  width: 200px;
+  
+  margin: 30px 0 10px 0;
+}
+
+/* styles for the nav */
+
+.nav {
+  color: #555555;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__item {
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: underline;
+}
+
+#instructions {
+  width: 100%;
+  background-color: #fff;
+  color: #555555;
+  border-radius: 3px;
+  padding: 3px 5px;
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 961px) {
+  .canvas-contain {
+    font-size: 16px;
+    width: 400px;
+    height: 400px;
+  }
+
+  .header {
+    width: 400px;
+  }
+
+  .images { 
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .images img {
+    width: 45%;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .canvas-contain {
+    font-size: 16px;
+    width: 350px;
+    height: 350px;
+  }
+
+  .header {
+    width: 350px;
+  }
 }
