@@ -22,7 +22,7 @@ main {
   justify-content: center;
 }
 
-.canvas-contain {
+.layers-contain {
   position: relative;
   display: flex;
   width: 600px;
@@ -38,7 +38,7 @@ main {
   position: absolute;
 }
 
-.image-click {
+.transparent-image {
   position: absolute;
   top: 0;
   left: 0;
@@ -163,8 +163,32 @@ main {
   margin-top: 5px;
 }
 
+/* shake when it is wrong */
+
+@keyframes shaking {
+  0% {
+    transform: translate(0px, 0px) rotateZ(0deg)
+  }
+  25% {
+    transform: translate(2px, 2px) rotateZ(1deg)
+  }
+  50% {
+    transform: translate(0px, 2px) rotateZ(0deg)
+  }
+  75% {
+    transform: translate(2px, 0px) rotateZ(-1deg)
+  }
+  100% {
+    transform: translate(0px, 0px) rotateZ(0deg)
+  }
+}
+
+.shake {
+  animation: shaking 200ms linear;
+}
+
 @media screen and (max-width: 961px) {
-  .canvas-contain {
+  .layers-contain {
     font-size: 16px;
     width: 400px;
     height: 400px;
@@ -186,7 +210,7 @@ main {
 }
 
 @media screen and (max-width: 400px) {
-  .canvas-contain {
+  .layers-contain {
     font-size: 16px;
     width: 350px;
     height: 350px;
@@ -198,7 +222,7 @@ main {
 }
 
 @media screen and (max-width: 300px) {
-  .canvas-contain, .header {
+  .layers-contain, .header {
     width: 100%;
   }
 }

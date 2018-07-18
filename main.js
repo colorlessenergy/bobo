@@ -22,7 +22,7 @@ let gameImage =  {
   answer: allImages[1].folder + allImages[1].answer,
 }
 
-let clickimage = document.querySelector('.image-click');
+let transparentImage = document.querySelector('.transparent-image');
 let lostImage = document.querySelector('.after');
 let loadPicBefore = document.querySelector('.before');
 
@@ -33,17 +33,7 @@ loadAllImages(allImages)
 let gameStarted = false;
 let won = false;
 
-document.querySelector('.start').addEventListener('click', function () {
-  let progressBar = document.querySelector('.progress-bar');
-  document.querySelector('.start').classList.toggle('start--click');
-  loadPicBefore.classList.toggle('before--opacity');
-  gameStarted = true;
-
-  loadProgressBar(progressBar);
-
-  clickimage.style.zIndex = "2";
-  clickimage.addEventListener('click', checkWonOrLost)
-})
+document.querySelector('.start').addEventListener('click', startGame)
 
 document.querySelector('#instructions').addEventListener('click', function () {
   if (won) {
@@ -51,6 +41,18 @@ document.querySelector('#instructions').addEventListener('click', function () {
     resetGame();
   }
 })
+
+function startGame () {
+  let progressBar = document.querySelector('.progress-bar');
+  document.querySelector('.start').classList.toggle('start--click');
+  loadPicBefore.classList.toggle('before--opacity');
+  gameStarted = true;
+
+  loadProgressBar(progressBar);
+
+  transparentImage.style.zIndex = "2";
+  transparentImage.addEventListener('click', checkWonOrLost)
+}
 
 function loadProgressBar(progressBar) {
   progressBar.classList.toggle('progress-bar__fill');
@@ -66,10 +68,13 @@ function getPixelDataOfImg(img, event) {
 }
 
 function checkWonOrLost(event) {
-  // get the alpha of the part clicked on the picture
   if (gameStarted) {
     let pixelDataTransparent = getPixelDataOfImg(this, event);
+    // get the alpha value of the pixel clicked
     pixelDataTransparent = pixelDataTransparent[pixelDataTransparent.length - 1];
+
+    // checks if the user clicked on the hidden answer
+    // does something when the user does and doesn't
 
     if (pixelDataTransparent > 0) {
       loadPicBefore.classList.toggle('before--opacity')
@@ -78,22 +83,27 @@ function checkWonOrLost(event) {
       won = true;
       setArrow(event);
     } else {
+      let layers = document.querySelector('.layers-contain');
       won = false;
       setArrow(event);
       document.querySelector('#instructions').textContent = 'Wrong! try again';
+      // an animation when the user pressed on the wrong spot
+      layers.classList.add('shake');
+      window.setTimeout(function () {
+        layers.classList.remove('shake');
+      }, 200);
     }
   }
 }
 
 function doneChangingImage () {
   if (!won) {
-    console.log('called')
     document.querySelector('#instructions').textContent = 'The change is done. Tap a part of picture.';
   }
 }
 
 function setUp () {
-  clickimage.src = gameImage.answer;
+  transparentImage.src = gameImage.answer;
   lostImage.src = gameImage.after;
   loadPicBefore.src = gameImage.before;
 }
@@ -120,21 +130,17 @@ function loadAllImages (images) {
   })
 }
 
+
+// resets the styles back to the initial state
 function resetGame() {
   let progressBar = document.querySelector('.progress-bar');
-  if (gameStarted) {
-    loadPicBefore.classList.add('before--opacity')
-    won = false;
-    loadProgressBar(progressBar);
+  progressBar.classList.remove('progress-bar__fill');
 
-  } else {
-    progressBar.classList.remove('progress-bar__fill');
-    document.querySelector('.start').classList.remove('start--click');
-    loadPicBefore.classList.remove('before--opacity');
-    document.querySelector('body').classList.remove("correct");
-    document.querySelector('.arrow').style.display = "none";
-  }
-
+  document.querySelector('.start').classList.remove('start--click');
+  loadPicBefore.classList.remove('before--opacity');
+  document.querySelector('body').classList.remove("correct");
+  document.querySelector('body').classList.remove("wrong");
+  document.querySelector('.arrow').style.display = "none";
   document.querySelector('#instructions').textContent = 'Find a part of the picture that changes gradually.';
   document.querySelector('.won').style.display = 'none';
 }
@@ -146,7 +152,6 @@ function setArrow(event) {
     document.querySelector('body').classList.remove("wrong");
   } else {
     document.querySelector('body').classList.add("wrong");
-    document.querySelector('body').classList.remove("correct");
   }
 
   arrow.style.top = event.offsetY + "px";
