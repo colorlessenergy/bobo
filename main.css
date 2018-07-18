@@ -195,3 +195,9 @@ main {
     width: 350px;
   }
 }
+
+@media screen and (max-width: 300px) {
+  .canvas-contain, .header {
+    width: 100%;
+  }
+}
