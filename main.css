@@ -22,7 +22,9 @@ main {
   justify-content: center;
 }
 
-.layers-contain {
+/* styling for the game */
+
+.game {
   position: relative;
   display: flex;
   width: 600px;
@@ -32,13 +34,44 @@ main {
   justify-content: center;
 }
 
-.after, .before {
+.game__arrow {
+  height: 60px;
+  width: 60px;
+  position: absolute;
+  display: none;
+  z-index: 3;
+}
+
+.game__instructions {
+  width: 100%;
+  background-color: #fff;
+  color: #555555;
+  border-radius: 3px;
+  padding: 3px 5px;
+  margin-top: 5px;
+}
+
+.game__start {
+  font-size: 25px;
+  position: relative;
+  background-color: white;
+  padding: 10px;
+
+  z-index: 2;
+}
+
+.game__start--click {
+  display: none;
+  z-index: 0;
+}
+
+.game__after-img, .game__before-img {
   width: 100%;
   height: 100%;
   position: absolute;
 }
 
-.transparent-image {
+.game__answer {
   position: absolute;
   top: 0;
   left: 0;
@@ -47,17 +80,17 @@ main {
   opacity: 0;
 }
 
-.before {
+.game__before-img {
   opacity: 1;
   z-index: 1;
 }
 
-.before--opacity {
+.game__before--opacity {
   transition: opacity 10s linear;
   opacity: 0;
 }
 
-.won {
+.game__won {
   background-color: rgba(0, 0, 0, .3);
   height: 100%;
   width: 100%;
@@ -74,25 +107,11 @@ main {
   font-size: 30px;
 }
 
-.won p {
+.game__won p {
   border: 1px solid #fff;
   padding: 10px;
   margin: 0;
   max-width: 80%;
-}
-
-.start {
-  font-size: 25px;
-  position: relative;
-  background-color: white;
-  padding: 10px;
-
-  z-index: 2;
-}
-
-.start--click {
-  display: none;
-  z-index: 0;
 }
 
 .progress-bar {
@@ -107,14 +126,6 @@ main {
 .progress-bar__fill {
   transition: width 10s linear;
   width: 0%;
-}
-
-.arrow {
-  height: 60px;
-  width: 60px;
-  position: absolute;
-  display: none;
-  z-index: 3;
 }
 
 .correct {
@@ -154,16 +165,6 @@ main {
   text-decoration: underline;
 }
 
-#instructions {
-  width: 100%;
-  background-color: #fff;
-  color: #555555;
-  border-radius: 3px;
-  padding: 3px 5px;
-  margin-top: 5px;
-}
-
-/* shake when it is wrong */
 
 @keyframes shaking {
   0% {
@@ -188,7 +189,7 @@ main {
 }
 
 @media screen and (max-width: 961px) {
-  .layers-contain {
+  .game {
     font-size: 16px;
     width: 400px;
     height: 400px;
@@ -210,7 +211,7 @@ main {
 }
 
 @media screen and (max-width: 400px) {
-  .layers-contain {
+  .game {
     font-size: 16px;
     width: 350px;
     height: 350px;
@@ -222,7 +223,7 @@ main {
 }
 
 @media screen and (max-width: 300px) {
-  .layers-contain, .header {
+  .game, .header {
     width: 100%;
   }
 }
